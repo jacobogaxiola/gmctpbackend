@@ -8,6 +8,6 @@ import lombok.Data;
 @Builder
 @AllArgsConstructor
 public class LoginRequest {
-    String email;
-    String password;
+    String correoelectronico;
+    String contrasena;
 }

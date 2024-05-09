@@ -10,8 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import gmctpat.webapi.models.Role;
-import gmctpat.webapi.repositories.RoleRepository;
+import gmctpat.webapi.models.Rol;
+import gmctpat.webapi.repositories.RolRepository;
 
 import java.util.Date;
 
@@ -20,10 +20,10 @@ import java.util.Date;
 public class RoleController {
 
     @Autowired
-    private RoleRepository roleRepository;
+    private RolRepository roleRepository;
 
     @GetMapping
-    public ResponseEntity<Page<Role>> getAllRoles(
+    public ResponseEntity<Page<Rol>> getAllRoles(
         @RequestParam(defaultValue = "0") int page,
         @RequestParam(defaultValue = "10") int size,
         @RequestParam(defaultValue = "nombre") String sortBy,
@@ -31,26 +31,26 @@ public class RoleController {
     ) {
 
         Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.fromString(sortDir), sortBy));
-        Page<Role> roles = roleRepository.findAll(pageable);
+        Page<Rol> roles = roleRepository.findAll(pageable);
         return new ResponseEntity<>(roles, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Role> getRoleById(@PathVariable Long id) {
-        Role role = roleRepository.findById(id)
+    public ResponseEntity<Rol> getRoleById(@PathVariable Long id) {
+        Rol role = roleRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Role not found with id " + id));
         return new ResponseEntity<>(role, HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity<Role> createRole(@RequestBody Role role) {
-        Role newRole = roleRepository.save(role);
+    public ResponseEntity<Rol> createRole(@RequestBody Rol role) {
+        Rol newRole = roleRepository.save(role);
         return new ResponseEntity<>(newRole, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Role> updateRole(@PathVariable Long id, @RequestBody Role roleDetails) {
-        Role role = roleRepository.findById(id)
+    public ResponseEntity<Rol> updateRole(@PathVariable Long id, @RequestBody Rol roleDetails) {
+        Rol role = roleRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Role not found with id " + id));
 
         role.setNombre(roleDetails.getNombre());
@@ -58,13 +58,13 @@ public class RoleController {
         role.setFechaDeBaja(roleDetails.getFechaDeBaja());
         role.setTipo(roleDetails.getTipo());
 
-        Role updatedRole = roleRepository.save(role);
+        Rol updatedRole = roleRepository.save(role);
         return new ResponseEntity<>(updatedRole, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteRole(@PathVariable Long id) {
-        Role role = roleRepository.findById(id)
+        Rol role = roleRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Role not found with id " + id));
 
         role.setFechaDeBaja(new Date());

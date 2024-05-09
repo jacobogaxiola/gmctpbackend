@@ -8,20 +8,20 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import gmctpat.webapi.models.Role;
+import gmctpat.webapi.models.Rol;
 
 @Repository
-public interface RoleRepository extends JpaRepository<Role, Long> {
+public interface RolRepository extends JpaRepository<Rol, Long> {
 
-    Page<Role> findByFechaDeBajaIsNull(Pageable pageable);
+    Page<Rol> findByFechaDeBajaIsNull(Pageable pageable);
     @SuppressWarnings("null")
-    default Page<Role> findAll(Pageable pageable) {
+    default Page<Rol> findAll(Pageable pageable) {
         return findByFechaDeBajaIsNull(pageable);
     }
 
-    Role findByIdAndFechaDeBajaIsNull(Long id);
+    Rol findByIdAndFechaDeBajaIsNull(Long id);
     @SuppressWarnings("null")
-    default Optional<Role> findById(Long id) {
+    default Optional<Rol> findById(Long id) {
         return Optional.ofNullable(findByIdAndFechaDeBajaIsNull(id));
     }
 
