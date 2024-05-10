@@ -1,27 +1,26 @@
 package gmctpat.webapi.repositories;
 
+import gmctpat.webapi.models.PuntoInspeccion;
+
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import gmctpat.webapi.models.Rol;
-
 @Repository
-public interface RolRepository extends JpaRepository<Rol, Long> {
+public interface PuntoInspeccionRepository extends JpaRepository<PuntoInspeccion, Long> {
 
-    Page<Rol> findByFechaDeBajaIsNull(Pageable pageable);
+    Page<PuntoInspeccion> findByFechaDeBajaIsNull(Pageable pageable);
     @SuppressWarnings("null")
-    default Page<Rol> findAll(Pageable pageable) {
+    default Page<PuntoInspeccion> findAll(Pageable pageable) {
         return findByFechaDeBajaIsNull(pageable);
     }
 
-    Optional<Rol> findByIdAndFechaDeBajaIsNull(Long id);
+    Optional<PuntoInspeccion> findByIdAndFechaDeBajaIsNull(Long id);
     @SuppressWarnings("null")
-    default Optional<Rol> findById(Long id) {
+    default Optional<PuntoInspeccion> findById(Long id) {
         return findByIdAndFechaDeBajaIsNull(id);
     }
 
